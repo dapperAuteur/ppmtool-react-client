@@ -10,6 +10,11 @@ class Dashboard extends Component {
     this.props.getProjects();
   }
   render() {
+    const projectObject = {
+      projectName: "Name",
+      projectIdentifier: "IDEE",
+      description: "descriptoi"
+    };
     return (
       <div className="projects">
         <div className="container">
@@ -20,7 +25,7 @@ class Dashboard extends Component {
               <CreateProjectButton />
               <br />
               <hr />
-              <ProjectItem />
+              <ProjectItem project={projectObject} />
             </div>
           </div>
         </div>
@@ -29,7 +34,7 @@ class Dashboard extends Component {
   }
 }
 Dashboard.propTypes = {
-  project: PropTypes.object.isRequired,
+  // project: PropTypes.object.isRequired,
   getProjects: PropTypes.func.isRequired
 };
 
