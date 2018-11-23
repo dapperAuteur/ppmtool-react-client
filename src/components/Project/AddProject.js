@@ -11,11 +11,18 @@ class AddProject extends Component {
       projectIdentifier: "",
       description: "",
       start_date: "",
-      end_date: ""
+      end_date: "",
+      errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
 
   onChange(e) {
@@ -31,13 +38,13 @@ class AddProject extends Component {
       start_date: this.state.start_date,
       end_date: this.state.end_date
     };
-    // console.log(newProject);
+    console.log(newProject);
     this.props.createProject(newProject, this.props.history);
   }
   render() {
+    const { projectName, projectIdentifier, description } = this.state.errors;
     return (
       <div>
-        {}
         <div className="project">
           <div className="container">
             <div className="row">
@@ -54,6 +61,7 @@ class AddProject extends Component {
                       value={this.state.projectName}
                       onChange={this.onChange}
                     />
+                    <p>{projectName}</p>
                   </div>
                   <div className="form-group">
                     <input
@@ -64,6 +72,7 @@ class AddProject extends Component {
                       value={this.state.projectIdentifier}
                       onChange={this.onChange}
                     />
+                    <p>{projectIdentifier}</p>
                   </div>
                   <div className="form-group">
                     <textarea
@@ -73,6 +82,7 @@ class AddProject extends Component {
                       value={this.state.description}
                       onChange={this.onChange}
                     />
+                    <p>{description}</p>
                   </div>
                   <h6>Start Date</h6>
                   <div className="form-group">
@@ -110,10 +120,15 @@ class AddProject extends Component {
 }
 
 AddProject.propTypes = {
-  createProject: PropTypes.func.isRequired
+  createProject: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
+const mapStateToProps = state => ({
+  errors: state.errors
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { createProject }
 )(AddProject);
