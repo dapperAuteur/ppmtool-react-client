@@ -13,12 +13,6 @@ export default function(state = initialState, action) {
         projects: action.payload
       };
 
-    // case GET_PROJECT:
-    //   return {
-    //   ...state,
-    //   project: action.payload
-    // };
-
     default:
       return state;
   }
