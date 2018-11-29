@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 class AddProjectTask extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
     const { id } = this.props.match.params;
     this.state = {
       summary: "",
@@ -20,6 +21,12 @@ class AddProjectTask extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
 
   onChange(e) {
@@ -44,8 +51,9 @@ class AddProjectTask extends Component {
   }
 
   render() {
+    console.log(this.state);
     const { id } = this.props.match.params;
-    // const {} = this.state.errors;
+    const { summary } = this.state.errors;
     return (
       <div className="add-PBI">
         <div className="container">
@@ -60,12 +68,17 @@ class AddProjectTask extends Component {
                 <div className="form-group">
                   <input
                     type="text"
-                    className="form-control form-control-lg"
+                    className={classnames("form-control form-control-lg", {
+                      "is-invalid": summary
+                    })}
                     name="summary"
                     placeholder="Project Task summary"
                     value={this.state.summary}
                     onChange={this.onChange}
                   />
+                  {summary && (
+                    <div className="invalid-feedback"> {summary}</div>
+                  )}
                 </div>
                 <div className="form-group">
                   <textarea
@@ -128,10 +141,15 @@ class AddProjectTask extends Component {
 }
 
 AddProjectTask.propTypes = {
-  addProjectTask: PropTypes.func.isRequired
+  addProjectTask: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
+const mapStateToProps = state => ({
+  errors: state.errors
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { addProjectTask }
 )(AddProjectTask);
