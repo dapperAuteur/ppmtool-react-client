@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-export default class UpdateProjectTask extends Component {
+class AddProjectTask extends Component {
   render() {
     const { id } = this.props.match.params;
     return (
@@ -12,7 +12,7 @@ export default class UpdateProjectTask extends Component {
               <Link to={`/projectBoard/${id}`} className="btn btn-light">
                 Back to Project Board
               </Link>
-              <h4 className="display-4 text-center">Update Project Task</h4>
+              <h4 className="display-4 text-center">Add Project Task</h4>
               <p className="lead text-center">Project Name + Project Code</p>
               <form>
                 <div className="form-group">
@@ -74,3 +74,4 @@ export default class UpdateProjectTask extends Component {
     );
   }
 }
+export default AddProjectTask;
