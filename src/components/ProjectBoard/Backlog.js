@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ProjectTask from "./ProjectTasks/ProjectTask";
+import PropTypes from "prop-types";
 
 class Backlog extends Component {
   render() {
@@ -56,4 +57,5 @@ class Backlog extends Component {
     );
   }
 }
+
 export default Backlog;
