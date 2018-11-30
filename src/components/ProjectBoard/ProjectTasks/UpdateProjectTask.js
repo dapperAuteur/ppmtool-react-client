@@ -46,7 +46,7 @@ class UpdateProjectTask extends Component {
         created_at,
         dueDate
       } = nextProps.project_task;
-      console.log(summary, status);
+      console.log(summary, status, dueDate);
       this.setState({
         id,
         summary,
@@ -82,7 +82,7 @@ class UpdateProjectTask extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    const { backlog_id, pt_id } = this.props.match.params;
+    // const { backlog_id, pt_id } = this.props.match.params;
     const updatedProjectTask = {
       id: this.state.id,
       projectSequence: this.state.projectSequence,
@@ -104,7 +104,6 @@ class UpdateProjectTask extends Component {
   }
 
   render() {
-    const { backlog_id } = this.props.match.params;
     const { summary } = this.state.errors;
     return (
       <div className="add-PBI">
@@ -112,7 +111,7 @@ class UpdateProjectTask extends Component {
           <div className="row">
             <div className="col-md-8 m-auto">
               <Link
-                to={`/projectBoard/${backlog_id}`}
+                to={`/projectBoard/${this.state.projectIdentifier}`}
                 className="btn btn-light"
               >
                 Back to Project Board
@@ -120,7 +119,7 @@ class UpdateProjectTask extends Component {
               <h4 className="display-4 text-center">Update Project Task</h4>
               <p className="lead text-center">
                 Project Name: {this.state.projectIdentifier} | Project Task ID:{" "}
-                {this.state.projectSequence}
+                {this.state.projectSequence}{" "}
               </p>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">

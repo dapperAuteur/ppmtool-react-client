@@ -92,6 +92,5 @@ export const updateProjectTask = (
       type: GET_ERRORS,
       payload: err.response.data
     });
-    history.push(`/projectBoard/${backlog_id}`);
   }
 };
