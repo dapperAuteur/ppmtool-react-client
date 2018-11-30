@@ -14,7 +14,7 @@ export const addProjectTask = (
       payload: {}
     });
   } catch (err) {
-    console.log(err.response.data);
+    // console.log(err.response.data);
     dispatch({
       type: GET_ERRORS,
       payload: err.response.data
@@ -25,14 +25,14 @@ export const addProjectTask = (
 export const getBacklog = backlog_id => async dispatch => {
   try {
     const res = await axios.get(`/backlogs/${backlog_id}`);
-    console.log(res.data);
+    // console.log(res.data);
     dispatch({
       type: GET_BACKLOG,
       payload: res.data
     });
   } catch (err) {
-    console.log(err.response.data);
-    console.log(err.response);
+    // console.log(err.response.data);
+    // console.log(err.response);
     dispatch({
       type: GET_ERRORS,
       payload: err.response.data

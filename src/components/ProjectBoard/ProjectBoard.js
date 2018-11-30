@@ -11,7 +11,8 @@ class ProjectBoard extends Component {
     this.props.getBacklog(id);
   }
   render() {
-    // console.log(props);
+    const { project_tasks } = this.props.backlog;
+    // console.log(project_tasks);
     const { id } = this.props.match.params;
     return (
       <div className="container">
@@ -20,7 +21,7 @@ class ProjectBoard extends Component {
         </Link>
         <br />
         <hr />
-        <Backlog />
+        <Backlog project_tasks_props={project_tasks} />
       </div>
     );
   }
