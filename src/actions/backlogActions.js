@@ -3,7 +3,8 @@ import {
   GET_ERRORS,
   GET_BACKLOG,
   GET_PROJECT_TASK,
-  UPDATE_PROJECT_TASK
+  // UPDATE_PROJECT_TASK,
+  DELETE_PROJECT_TASK
 } from "./types";
 
 export const addProjectTask = (
@@ -91,6 +92,21 @@ export const updateProjectTask = (
     dispatch({
       type: GET_ERRORS,
       payload: err.response.data
+    });
+  }
+};
+
+export const deleteProjectTask = (backlog_id, pt_id) => async dispatch => {
+  if (
+    window.confirm(
+      `You are DELETING Project Task ${pt_id}, this action CANNOT be undone.`
+    )
+  ) {
+    const res = await axios.delete(`/backlogs/${backlog_id}/${pt_id}`);
+    console.log(res.data);
+    dispatch({
+      type: DELETE_PROJECT_TASK,
+      payload: pt_id
     });
   }
 };
