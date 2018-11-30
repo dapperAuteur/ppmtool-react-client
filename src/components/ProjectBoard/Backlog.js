@@ -24,7 +24,7 @@ class Backlog extends Component {
       }
     }
 
-    console.log(todoItems, inProgressItems, doneItems);
+    // console.log(todoItems, inProgressItems, doneItems);
     return (
       <div className="container">
         <div className="row">

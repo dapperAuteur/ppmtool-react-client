@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 class AddProjectTask extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
     const { id } = this.props.match.params;
     this.state = {
       summary: "",
@@ -51,7 +51,7 @@ class AddProjectTask extends Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     const { id } = this.props.match.params;
     const { summary } = this.state.errors;
     return (
