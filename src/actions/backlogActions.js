@@ -1,5 +1,10 @@
 import axios from "axios";
-import { GET_ERRORS, GET_BACKLOG, GET_PROJECT_TASK } from "./types";
+import {
+  GET_ERRORS,
+  GET_BACKLOG,
+  GET_PROJECT_TASK,
+  UPDATE_PROJECT_TASK
+} from "./types";
 
 export const addProjectTask = (
   backlog_id,
@@ -52,6 +57,28 @@ export const getProjectTask = (
     console.log(res.data);
     dispatch({
       type: GET_PROJECT_TASK,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    });
+    history.push(`/projectBoard/${backlog_id}`);
+  }
+};
+
+export const updateProjectTask = (
+  backlog_id,
+  pt_id,
+  history
+) => async dispatch => {
+  try {
+    console.log(backlog_id, pt_id, history);
+    const res = await axios.patch(`/backlogs/${backlog_id}/${pt_id}`);
+    console.log(res.data);
+    dispatch({
+      type: UPDATE_PROJECT_TASK,
       payload: res.data
     });
   } catch (err) {

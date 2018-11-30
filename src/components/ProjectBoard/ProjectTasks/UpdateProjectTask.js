@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   getProjectTask,
-  addProjectTask
+  updateProjectTask
 } from "./../../../actions/backlogActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -12,39 +12,44 @@ class UpdateProjectTask extends Component {
   constructor(props) {
     super(props);
     console.log(this.props.match.params);
-    const { backlog_id, pt_id } = this.props.match.params;
     this.state = {
       summary: "",
       acceptanceCriteria: "",
       status: "",
       priority: 0,
       dueDate: "",
+      projectIdentifier: "",
+      projectSequence: "",
       errors: {}
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    // console.log(nextProps);
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
 
-    if (nextProps.projectTask) {
-      console.log(nextProps.projectTask);
+    if (nextProps.project_task) {
+      // console.log(nextProps.project_task);
       const {
         summary,
         acceptanceCriteria,
         status,
         priority,
+        projectIdentifier,
+        projectSequence,
         dueDate
-      } = nextProps.projectTask;
+      } = nextProps.project_task;
       console.log(summary, status);
       this.setState({
         summary,
         acceptanceCriteria,
         status,
         priority,
+        projectIdentifier,
+        projectSequence,
         dueDate
       });
     }
@@ -52,7 +57,7 @@ class UpdateProjectTask extends Component {
 
   componentDidMount() {
     console.log(this.state);
-    console.log(this.props);
+    // console.log(this.props);
     const { backlog_id, pt_id } = this.props.match.params;
     this.props.getProjectTask(backlog_id, pt_id, this.props.history);
     // this.setState({
@@ -79,7 +84,7 @@ class UpdateProjectTask extends Component {
       dueDate: this.state.dueDate
     };
     console.log(updatedProjectTask);
-    this.props.addProjectTask(
+    this.props.updateProjectTask(
       this.state.projectIdentifier,
       updatedProjectTask,
       this.props.history
@@ -101,8 +106,11 @@ class UpdateProjectTask extends Component {
                 Back to Project Board
               </Link>
               <h4 className="display-4 text-center">Update Project Task</h4>
-              <p className="lead text-center">Project Name + Project Code</p>
-              <form>
+              <p className="lead text-center">
+                Project Name: {this.state.projectIdentifier} | Project Task ID:{" "}
+                {this.state.projectSequence}
+              </p>
+              <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
                     type="text"
@@ -179,18 +187,18 @@ class UpdateProjectTask extends Component {
 }
 
 UpdateProjectTask.propTypes = {
-  addProjectTask: PropTypes.func.isRequired,
+  updateProjectTask: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   getProjectTask: PropTypes.func.isRequired,
-  projectTask: PropTypes.object.isRequired
+  project_task: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   errors: state.errors,
-  projectTask: state.backlog.project_task
+  project_task: state.backlog.project_task
 });
 
 export default connect(
   mapStateToProps,
-  { getProjectTask, addProjectTask }
+  { getProjectTask, updateProjectTask }
 )(UpdateProjectTask);
