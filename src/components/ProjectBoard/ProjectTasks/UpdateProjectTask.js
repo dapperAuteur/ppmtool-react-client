@@ -13,6 +13,7 @@ class UpdateProjectTask extends Component {
     super(props);
     console.log(this.props.match.params);
     this.state = {
+      id: "",
       summary: "",
       acceptanceCriteria: "",
       status: "",
@@ -20,6 +21,7 @@ class UpdateProjectTask extends Component {
       dueDate: "",
       projectIdentifier: "",
       projectSequence: "",
+      created_at: "",
       errors: {}
     };
     this.onChange = this.onChange.bind(this);
@@ -34,22 +36,26 @@ class UpdateProjectTask extends Component {
     if (nextProps.project_task) {
       // console.log(nextProps.project_task);
       const {
+        id,
         summary,
         acceptanceCriteria,
         status,
         priority,
         projectIdentifier,
         projectSequence,
+        created_at,
         dueDate
       } = nextProps.project_task;
       console.log(summary, status);
       this.setState({
+        id,
         summary,
         acceptanceCriteria,
         status,
         priority,
         projectIdentifier,
         projectSequence,
+        created_at,
         dueDate
       });
     }
@@ -76,16 +82,22 @@ class UpdateProjectTask extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    const { backlog_id, pt_id } = this.props.match.params;
     const updatedProjectTask = {
+      id: this.state.id,
+      projectSequence: this.state.projectSequence,
       summary: this.state.summary,
       acceptanceCriteria: this.state.acceptanceCriteria,
       status: this.state.status,
       priority: this.state.priority,
-      dueDate: this.state.dueDate
+      dueDate: this.state.dueDate,
+      projectIdentifier: this.state.projectIdentifier,
+      created_at: this.state.created_at
     };
-    console.log(updatedProjectTask);
+    // console.log(updatedProjectTask);
     this.props.updateProjectTask(
       this.state.projectIdentifier,
+      this.state.projectSequence,
       updatedProjectTask,
       this.props.history
     );

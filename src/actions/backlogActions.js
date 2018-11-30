@@ -71,17 +71,23 @@ export const getProjectTask = (
 export const updateProjectTask = (
   backlog_id,
   pt_id,
+  project_task,
   history
 ) => async dispatch => {
   try {
-    console.log(backlog_id, pt_id, history);
-    const res = await axios.patch(`/backlogs/${backlog_id}/${pt_id}`);
+    console.log(backlog_id, pt_id, project_task, history);
+    const res = await axios.patch(
+      `/backlogs/${backlog_id}/${pt_id}`,
+      project_task
+    );
     console.log(res.data);
     dispatch({
-      type: UPDATE_PROJECT_TASK,
-      payload: res.data
+      type: GET_ERRORS,
+      payload: {}
     });
+    history.push(`/projectBoard/${backlog_id}`);
   } catch (err) {
+    console.log(err.response.data);
     dispatch({
       type: GET_ERRORS,
       payload: err.response.data
