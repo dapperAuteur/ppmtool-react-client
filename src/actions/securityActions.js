@@ -21,10 +21,10 @@ export const createNewUser = (newUser, history) => async dispatch => {
   }
 };
 
-export const login = LoginRequest => async dispatch => {
+export const login = loginRequest => async dispatch => {
   try {
     //  post => Login Request
-    const res = await axios.post("/users/login", LoginRequest);
+    const res = await axios.post("/users/login", loginRequest);
     // extract token from res.data
     const { token } = res.data;
     // store the token in the localStorage
