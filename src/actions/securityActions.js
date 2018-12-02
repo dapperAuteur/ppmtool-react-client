@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 
 export const createNewUser = (newUser, history) => async dispatch => {
   try {
-    const res = await axios.post("/users/register", newUser);
+    const res = await axios.post("/api/ver0001/users/register", newUser);
     history.push("/login");
     console.log(res.data);
     dispatch({
@@ -24,7 +24,7 @@ export const createNewUser = (newUser, history) => async dispatch => {
 export const login = loginRequest => async dispatch => {
   try {
     //  post => Login Request
-    const res = await axios.post("/users/login", loginRequest);
+    const res = await axios.post("/api/ver0001/users/login", loginRequest);
     // extract token from res.data
     const { token } = res.data;
     // store the token in the localStorage

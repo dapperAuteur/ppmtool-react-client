@@ -13,7 +13,7 @@ export const addProjectTask = (
   history
 ) => async dispatch => {
   try {
-    await axios.post(`/backlogs/${backlog_id}`, project_task);
+    await axios.post(`/api/ver0001/backlogs/${backlog_id}`, project_task);
     history.push(`/projectBoard/${backlog_id}`);
     dispatch({
       type: GET_ERRORS,
@@ -32,7 +32,7 @@ export const addProjectTask = (
 
 export const getBacklog = backlog_id => async dispatch => {
   try {
-    const res = await axios.get(`/backlogs/${backlog_id}`);
+    const res = await axios.get(`/api/ver0001/backlogs/${backlog_id}`);
     // console.log(res.data);
     dispatch({
       type: GET_BACKLOG,
@@ -54,7 +54,7 @@ export const getProjectTask = (
   history
 ) => async dispatch => {
   try {
-    const res = await axios.get(`/backlogs/${backlog_id}/${pt_id}`);
+    const res = await axios.get(`/api/ver0001/backlogs/${backlog_id}/${pt_id}`);
     console.log(res.data);
     dispatch({
       type: GET_PROJECT_TASK,
@@ -78,7 +78,7 @@ export const updateProjectTask = (
   try {
     console.log(backlog_id, pt_id, project_task, history);
     const res = await axios.patch(
-      `/backlogs/${backlog_id}/${pt_id}`,
+      `/api/ver0001/backlogs/${backlog_id}/${pt_id}`,
       project_task
     );
     console.log(res.data);
@@ -102,7 +102,9 @@ export const deleteProjectTask = (backlog_id, pt_id) => async dispatch => {
       `You are DELETING Project Task ${pt_id}, this action CANNOT be undone.`
     )
   ) {
-    const res = await axios.delete(`/backlogs/${backlog_id}/${pt_id}`);
+    const res = await axios.delete(
+      `/api/ver0001/backlogs/${backlog_id}/${pt_id}`
+    );
     console.log(res.data);
     dispatch({
       type: DELETE_PROJECT_TASK,
